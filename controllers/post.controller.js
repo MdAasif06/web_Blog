@@ -10,7 +10,7 @@ exports.createPost = async (req, res) => {
       image,
       author: req.user.name,
     });
-    res.status(201).json({error:"created post ",post});
+    res.status(201).json({ message: "created post ", post });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });
@@ -44,7 +44,7 @@ exports.updatePost = async (req, res) => {
       req.body,
       { new: true }
     );
-    res.status(201).json({error:"updated post",postUpdate});
+    res.status(201).json({ message: "updated post", postUpdate });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });
@@ -52,6 +52,11 @@ exports.updatePost = async (req, res) => {
 };
 
 exports.deletePost = async (req, res) => {
-  const delPost = await postModel.findByIdAndDelete(req.params.id);
-  res.status(201).json({ error: "post deleted" });
+  try {
+    const delPost = await postModel.findByIdAndDelete(req.params.id);
+    res.status(201).json({ message: "post deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
 };

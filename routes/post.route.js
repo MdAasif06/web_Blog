@@ -9,13 +9,13 @@ const {
   deletePost,
   updatePost,
 } = require("../controllers/post.controller");
-const { cloudinaryUpload } = require("../utils/cloudinary");
+const { cloudinaryUpload } = require("../utils/cloudinary.js");
 
 const upload = multer({ dest: "uploads/" });
 
-router.post("/", getAllPosts);
-router.post("/:id", getPosts);
-router.post("/", protect, upload.single("image"), cloudinaryUpload, createPost);
+router.get("/", getAllPosts);
+router.get("/:id", getPosts);
+router.post("/create", protect, upload.single("image"), cloudinaryUpload, createPost);
 router.put("/:id", protect, updatePost);
 router.delete("/:id", protect, deletePost);
 
